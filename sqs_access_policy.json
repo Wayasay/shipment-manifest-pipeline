@@ -1,0 +1,28 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "__owner_statement",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "YOUR_ACCOUNT_ID"
+      },
+      "Action": "SQS:*",
+      "Resource": "arn:aws:sqs:YOUR_REGION:YOUR_ACCOUNT_ID:YOUR_QUEUE_NAME"
+    },
+    {
+      "Sid": "Allow-S3-SendMessage",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:YOUR_REGION:YOUR_ACCOUNT_ID:YOUR_QUEUE_NAME",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:::YOUR_BUCKET_NAME"
+        }
+      }
+    }
+  ]
+}
